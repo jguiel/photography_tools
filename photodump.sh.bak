@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Check if an argument is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <destination_folder>"
+  exit 1
+fi
+
+# Destination folder
+DESTINATION="/Users/justinguiel/Dropbox/$1"
+
+# Create the destination folder
+mkdir -p "$DESTINATION"
+
+# Search for the external drive and find the folder with image files
+IMAGE_FOLDER=$(find /Volumes -type d \( -name '.?' -o -name '.*' \) -prune -o -type f \( -iname "*.jpg" -o -iname "*.png" \) -print0 | xargs -0 dirname | sort -u | tr -d '\n')
+
+# Check if an image folder was found
+if [ -z "$IMAGE_FOLDER" ]; then
+  echo "No image folder found on external drive."
+  exit 1
+fi
+
+echo "Moving $IMAGE_FOLDER to $DESTINATION"
+echo "Speak now or hold your penits"
+sleep 5
+
+# Move all images to the destination folder
+mv "$IMAGE_FOLDER"/* "$DESTINATION"
+
+echo "Images have been moved to $DESTINATION"
+
