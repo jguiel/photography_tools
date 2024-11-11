@@ -16,7 +16,7 @@ mkdir -p "$DESTINATION"
 # Search for drives w/images
 IMAGE_FOLDERS=$(
     find "$MEMCARDMNT" -type d \( -name '.?' -o -name '.*' \) -prune -o \
-        -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.raw" -o -iname "*.jpeg" -o -iname "*.cr2" \) -print0 | \
+        -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.cr2" \) -print0 | \
     xargs -0 dirname | \
     sort -u
 )
