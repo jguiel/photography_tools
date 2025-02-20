@@ -16,7 +16,7 @@ mkdir -p "$DESTINATION"
 # Search for drives w/images
 IMAGE_FOLDERS=$(
     find "$MEMCARDMNT" -type d \( -name '.?' -o -name '.*' \) -prune -o \
-        -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.cr2" \) -print0 | \
+        -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" -o -iname "*.cr2" -o -iname "*.dng" -o -iname "*.cr3" \) -print0 | \
     xargs -0 dirname | \
     sort -u
 )
@@ -55,4 +55,10 @@ done
 echo
 echo "Images were moved to $DESTINATION"
 echo
+FIRST_FOLDER=$(echo "$IMAGE_FOLDERS" | head -n1)
+VOLUME=$(echo "$FIRST_FOLDER" | awk -F'/' '{print "/"$2"/"$3}')
+diskutil eject "$VOLUME"
+echo
+echo
 echo ":)"
+
